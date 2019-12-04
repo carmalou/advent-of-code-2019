@@ -76,7 +76,7 @@ function loopthrough() {
 loopthrough();
 
 // wtf: 359964
-// wtf: 359964
+// wtf: 359964 
 
 // answer I got was 5296
 // but why tf did this get called so many times??
