@@ -21,7 +21,6 @@ function incrementNumbers() {
 }
 
 function parseIntcode(arr, num) {
-    howmanytimesitran++;
     if(num == null) {
         num = 0;
     }
@@ -61,6 +60,7 @@ function parseIntcode(arr, num) {
 }
 
 function loopthrough() {
+    howmanytimesitran++;
     var arr = generateArr(noun, verb);
     parseIntcode(arr);
     incrementNumbers();
