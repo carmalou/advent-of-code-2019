@@ -47,12 +47,14 @@ function parseIntcode(arr, num) {
     // this opcode means the program is complete
     // bail out
     else if(arr[num] == 99) {
-        console.log(arr[0]);
+        if(arr[0] == 19690720) {
+            console.log('success on line 52!');
+            console.log(arr[1], ' ', arr[2])
+            return;
+        }
         return;
     } else {
-        console.log('something bad happened. \n our count got off');
-        console.log('num: ', num);
-        console.log('arr[num]: ', arr[num]);
+        throw Error('wrong opcode')
     }
 
     return parseIntcode(arr, (num + 4));
@@ -69,26 +71,12 @@ function loopthrough() {
     } else {
         return loopthrough();
     }
-
-    // if(noun != 99 || verb != 99) {
-    //     return loopthrough();
-    // } else {
-    //     console.log('how many times it ran: ', howmanytimesitran);
-    //     return;
-    // }
 }
 
 loopthrough();
 
-// pass numbers into generateArr
-// pass arr into parseIntcode
-// increment numbers
-// repeat
-
-// check first index to see if its equal to 19690720
-// then what??
-
-
 // wtf: 359964
 // wtf: 359964
-// wtfff: 3564
+
+// answer I got was 5296
+// but why tf did this get called so many times??
