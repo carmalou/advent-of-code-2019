@@ -12,17 +12,17 @@ function createPotentialList() {
 function convertToArr(num) {
     // convert num param into arr and then return
     var tmpArr = [];
-
+    
     while(num > 10) {
         var subtract = num % 10;
         num = num - subtract;
         tmpArr.push(subtract);
-      
+        
         if(num >= 10) {
             num = num / 10;
         }
     }
-
+    
     tmpArr.push(num);
     return tmpArr.reverse();
 }
@@ -49,29 +49,53 @@ function checkDoubles(paramArr) {
             rtnBool = true;
         }
     }
-
+    
     return rtnBool;
 }
 
-function checkSequence(paramArr) {
-    // if numbers repeat, they must repeat an _even_ number of times (because why tf not)
-    var j = 0;
-    for(var i = 0; i < paramArr.length; i++ ) {
-        if(paramArr[i] == paramArr[i + 1]) {
-            j++
-        }
+function checkSequence(paramArr, tmpObj, j) {
+    if(tmpObj == null) {
+        tmpObj = {};
     }
-
-    return j % 2 == 0;
+    
+    if(j == null) {
+        j = 0;
+    }
+    
+    if(j == paramArr.length) {
+        // here check tmpObj for properties
+        // if properties, check if any aren't even numbers
+        var rtnBool = true;
+        
+        for(var prop in tmpObj) {
+            if(tmpObj[prop] % 2 != 0) {
+                rtnBool = false;
+            }
+        }
+        console.log(rtnBool);
+        return rtnBool;
+    }
+    
+    // if current num is equal to the next num, add it to tmpObj
+    // increment it
+    if(paramArr[j] == paramArr[j + 1]) {
+        if(!tmpObj[paramArr[j]]) {
+            tmpObj[paramArr[j]] = 1;
+        }
+        tmpObj[paramArr[j]] = tmpObj[paramArr[j]] + 1;
+    }
+    
+    j++;
+    return checkSequence(paramArr, tmpObj, j);
 }
 
 function exec() {
     // first create potential list
     // once we have list, check order -> if not 'proper' remove from list
     // once we've checked list, return total
-
+    
     createPotentialList();
-    var filteredArr = arr.filter(checkLength).filter(checkDoubles).filter(checkOrder);
+    var filteredArr = arr.filter(checkLength).filter(checkDoubles).filter(checkSequence).filter(checkOrder);
     console.log(filteredArr.length);
 }
 
